@@ -14,6 +14,11 @@ const ERROR_MESSAGES = {
   EXHIBIT_WRONG_ID: "Передан некорректный id лота для удаления",
   EXHIBIT_NOT_FOUND: "Лот с таким id не найден",
   EXHIBIT_EXISTS: "Лот с таким id уже существует",
+
+  EXHIBITION_WRONG_DATA: "При сохранении выставки переданы невалидные данные",
+  EXHIBITION_WRONG_ID: "Передан некорректный id выставки",
+  EXHIBITION_NOT_FOUND: "Выставка с таким id не найдена",
+  EXHIBITION_EXISTS: "Выставка с таким id уже существует",
 };
 
 const URL_REGEXP =
