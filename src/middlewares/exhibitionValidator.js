@@ -20,3 +20,9 @@ module.exports.exhibitionValidator = celebrate({
     isActive: Joi.boolean().required(),
   }),
 });
+
+module.exports.exhibitionIdValidator = celebrate({
+  params: Joi.object().keys({
+    id: Joi.number().greater(0).required(),
+  }),
+});
