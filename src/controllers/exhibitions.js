@@ -5,7 +5,7 @@ const { NotFoundError, ValidationError, ConflictError } = require("../errors");
 const { ERROR_MESSAGES } = require("../constants");
 
 module.exports.getExhibitions = (req, res, next) => {
-  Exhibition.find({})
+  Exhibition.find({}, { _id: 0 })
     .then((exhibitions) => res.send(exhibitions))
     .catch((error) => next(error));
 };
@@ -17,82 +17,83 @@ module.exports.createExhibition = (req, res, next) => {
     .then((exhibition) => res.status(201).send(exhibition))
     .catch((error) => {
       if (error.name === "CastError") {
-        return next(new ValidationError(ERROR_MESSAGES.EXHIBIT_WRONG_ID));
+        return next(new ValidationError(ERROR_MESSAGES.EXHIBITION_WRONG_ID));
       }
 
       if (error.name === "ValidationError") {
-        return next(new ValidationError(ERROR_MESSAGES.EXHIBIT_WRONG_DATA));
+        return next(new ValidationError(ERROR_MESSAGES.EXHIBITION_WRONG_DATA));
       }
 
       if (error.code === 11000) {
-        return next(new ConflictError(ERROR_MESSAGES.EXHIBIT_EXISTS));
+        return next(new ConflictError(ERROR_MESSAGES.EXHIBITION_EXISTS));
+      }
+
+      if (error.name === "DocumentNotFoundError") {
+        return next(new NotFoundError(ERROR_MESSAGES.EXHIBITION_NOT_FOUND));
       }
 
       return next(error);
     });
 };
 
-// module.exports.findExhibitById = (req, res, next) => {
-//   Exhibit.findOne({ exhibitId: req.params.exhibitId })
-//     .orFail()
-//     .then((exhibit) => {
-//       console.log(exhibit);
-//       res.send(exhibit);
-//     })
-//     .catch((error) => {
-//       if (error.name === "CastError") {
-//         return next(new ValidationError(ERROR_MESSAGES.EXHIBIT_WRONG_ID));
-//       }
+module.exports.findExhibitionById = (req, res, next) => {
+  Exhibition.findOne({ id: req.params.id })
+    .orFail()
+    .then((exhibition) => {
+      console.log(exhibition);
+      res.send(exhibition);
+    })
+    .catch((error) => {
+      if (error.name === "CastError") {
+        return next(new ValidationError(ERROR_MESSAGES.EXHIBIT_WRONG_ID));
+      }
 
-//       if (error.name === "DocumentNotFoundError") {
-//         return next(new NotFoundError(ERROR_MESSAGES.EXHIBIT_NOT_FOUND));
-//       }
+      if (error.name === "DocumentNotFoundError") {
+        return next(new NotFoundError(ERROR_MESSAGES.EXHIBIT_NOT_FOUND));
+      }
 
-//       return next(error);
-//     });
-// };
+      return next(error);
+    });
+};
 
-// module.exports.deleteExhibit = (req, res, next) => {
-//   Exhibit.findOneAndDelete({ exhibitId: req.params.exhibitId })
-//     .orFail()
-//     .then((exhibit) => res.send(exhibit))
-//     .catch((error) => {
-//       if (error.name === "CastError") {
-//         return next(new ValidationError(ERROR_MESSAGES.EXHIBIT_WRONG_ID));
-//       }
+module.exports.updateExhibition = (req, res, next) => {
+  Exhibition.findOneAndUpdate({ id: req.params.id }, req.body, {
+    new: true,
+    runValidators: true,
+    projection: { _id: 0 },
+  })
+    .orFail()
+    .then((exhibition) => res.send(exhibition))
+    .catch((error) => {
+      if (error.name === "DocumentNotFoundError") {
+        return next(new NotFoundError(ERROR_MESSAGES.EXHIBITION_NOT_FOUND));
+      }
 
-//       if (error.name === "DocumentNotFoundError") {
-//         return next(new NotFoundError(ERROR_MESSAGES.EXHIBIT_NOT_FOUND));
-//       }
+      if (error.name === "ValidationError") {
+        return next(new ValidationError(ERROR_MESSAGES.EXHIBITION_WRONG_DATA));
+      }
 
-//       return next(error);
-//     });
-// };
+      if (error.name === "CastError") {
+        return next(new NotFoundError(ERROR_MESSAGES.EXHIBITION_NOT_FOUND));
+      }
 
-// module.exports.updateExhibit = (req, res, next) => {
-//   Exhibit.findOneAndUpdate({ exhibitId: req.params.exhibitId }, req.body, {
-//     new: true,
-//     runValidators: true,
-//   })
-//     .orFail()
-//     .then((exhibit) => res.send(exhibit))
-//     .catch((error) => {
-//       if (error.name === "DocumentNotFoundError") {
-//         return next(new NotFoundError(ERROR_MESSAGES.EXHIBIT_NOT_FOUND));
-//       }
+      return next(error);
+    });
+};
 
-//       if (error.name === "ValidationError") {
-//         return next(new ValidationError(ERROR_MESSAGES.EXHIBIT_WRONG_DATA));
-//       }
+module.exports.deleteExhibition = (req, res, next) => {
+  Exhibition.findOneAndDelete({ id: req.params.id }, { _id: 0 })
+    .orFail()
+    .then((exhibition) => res.send(exhibition))
+    .catch((error) => {
+      if (error.name === "CastError") {
+        return next(new ValidationError(ERROR_MESSAGES.EXHIBITION_WRONG_ID));
+      }
 
-//       if (error.name === "CastError") {
-//         return next(new NotFoundError(ERROR_MESSAGES.EXHIBIT_NOT_FOUND));
-//       }
+      if (error.name === "DocumentNotFoundError") {
+        return next(new NotFoundError(ERROR_MESSAGES.EXHIBITION_NOT_FOUND));
+      }
 
-//       if (error.code === 11000) {
-//         return next(new ConflictError(ERROR_MESSAGES.EXHIBIT_EXISTS));
-//       }
-
-//       return next(error);
-//     });
-// };
+      return next(error);
+    });
+};
