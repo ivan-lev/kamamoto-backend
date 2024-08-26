@@ -8,6 +8,7 @@ const { createUser, login } = require("../controllers/users");
 const auth = require("../middlewares/auth");
 const userRouter = require("./users");
 const collectionRouter = require("./collection");
+const statisticsRouter = require("./statistics");
 
 const exhibitRouter = require("./exhibits");
 const exhibitionRouter = require("./exhibitons");
@@ -24,6 +25,7 @@ routes.use("/exhibits", exhibitRouter);
 routes.use("/exhibitions", exhibitionRouter);
 routes.use("/users", userRouter);
 routes.use("/collection", collectionRouter);
+routes.use("/statistics/", statisticsRouter);
 
 routes.all("*", (req, res, next) =>
   next(new NotFoundError(ERROR_MESSAGES.PAGE_NOT_FOUND))
