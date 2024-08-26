@@ -13,7 +13,7 @@ module.exports.exhibitionValidator = celebrate({
     name: Joi.string().required().required(),
     link: Joi.string().allow("").pattern(URL_REGEXP),
     description: Joi.string().allow("").required(),
-    photosCount: Joi.number().min(0).required(),
+    photos: Joi.array().items(Joi.string()),
     poster: Joi.boolean().required(),
     curators: Joi.string().allow(""),
     organisators: Joi.string().allow(""),

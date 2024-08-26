@@ -44,10 +44,6 @@ const exhibitionSchema = new mongoose.Schema(
 
     link: {
       type: String,
-      // validate: {
-      //   validator: (value) => validator.isURL(value),
-      //   message: "Некорректный URL выставки",
-      // },
     },
 
     description: {
@@ -55,12 +51,13 @@ const exhibitionSchema = new mongoose.Schema(
       required: [true, "Нужно заполнить описание выставки"],
     },
 
-    photosCount: {
-      type: Number,
-      required: [
-        true,
-        "Нужно указать количество фотографий в галерее выставки",
+    photos: {
+      type: [
+        {
+          type: String,
+        },
       ],
+      default: [],
     },
 
     poster: {

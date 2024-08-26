@@ -36,11 +36,10 @@ module.exports.createExhibition = (req, res, next) => {
     });
 };
 
-module.exports.findExhibitionById = (req, res, next) => {
-  Exhibition.findOne({ id: req.params.id })
+module.exports.getExhibitionById = (req, res, next) => {
+  Exhibition.findOne({ id: req.params.id }, { _id: 0 })
     .orFail()
     .then((exhibition) => {
-      console.log(exhibition);
       res.send(exhibition);
     })
     .catch((error) => {
