@@ -16,7 +16,7 @@ const { ERROR_MESSAGES } = require("../constants");
 
 routes.post("/signin", signValidator, login);
 
-routes.use(auth);
+routes.use(auth); // pass all get requests except of user token checking
 
 routes.use("/users", userRouter);
 routes.use("/exhibits", exhibitRouter);
