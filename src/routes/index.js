@@ -22,8 +22,8 @@ routes.use("/users", userRouter);
 routes.use("/exhibits", exhibitRouter);
 routes.use("/exhibitions", exhibitionRouter);
 routes.use("/collection", collectionRouter);
-routes.use("/statistics/", statisticsRouter);
-routes.use("/partners/", partnerRouter);
+routes.use("/statistics", statisticsRouter);
+routes.use("/partners", partnerRouter);
 
 routes.all("*", (req, res, next) =>
   next(new NotFoundError(ERROR_MESSAGES.PAGE_NOT_FOUND))

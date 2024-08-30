@@ -64,15 +64,15 @@ module.exports.updatePartner = (req, res, next) => {
     .then((partner) => res.send(partner))
     .catch((error) => {
       if (error.name === "DocumentNotFoundError") {
-        return next(new NotFoundError(ERROR_MESSAGES.EXHIBITION_NOT_FOUND));
+        return next(new NotFoundError(ERROR_MESSAGES.PARTNER_NOT_FOUND));
       }
 
       if (error.name === "ValidationError") {
-        return next(new ValidationError(ERROR_MESSAGES.EXHIBITION_WRONG_DATA));
+        return next(new ValidationError(ERROR_MESSAGES.PARTNER_WRONG_DATA));
       }
 
       if (error.name === "CastError") {
-        return next(new NotFoundError(ERROR_MESSAGES.EXHIBITION_NOT_FOUND));
+        return next(new NotFoundError(ERROR_MESSAGES.PARTNER_NOT_FOUND));
       }
 
       return next(error);
@@ -82,6 +82,7 @@ module.exports.updatePartner = (req, res, next) => {
 module.exports.deletePartner = (req, res, next) => {
   Partner.findOneAndDelete({ _id: req.params._id })
     .orFail()
+    .select("_id")
     .then((partner) => res.send(partner))
     .catch((error) => {
       if (error.name === "CastError") {

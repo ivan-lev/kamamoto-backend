@@ -4,15 +4,18 @@ const {
   getPartners,
   createPartner,
   updatePartner,
+  deletePartner,
 } = require("../controllers/partners");
 
 const {
-  partnerValidator,
+  partnerCreateValidator,
+  partnerUpdateValidator,
+  partnerIdValidator,
 } = require("../middlewares/validators/partnerValidator");
 
 router.get("/", getPartners);
-router.post("/", partnerValidator, createPartner);
-router.patch("/:id", partnerValidator, updatePartner);
-// router.delete("/:id", exhibitionIdValidator, deleteExhibition);
+router.post("/", partnerCreateValidator, createPartner);
+router.patch("/:_id", partnerUpdateValidator, updatePartner);
+router.delete("/:_id", partnerIdValidator, deletePartner);
 
 module.exports = router;

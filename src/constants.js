@@ -19,6 +19,11 @@ const ERROR_MESSAGES = {
   EXHIBITION_WRONG_ID: "Передан некорректный id выставки",
   EXHIBITION_NOT_FOUND: "Выставка с таким id не найдена",
   EXHIBITION_EXISTS: "Выставка с таким id уже существует",
+
+  PARTNER_WRONG_DATA: "При сохранении партнёра переданы невалидные данные",
+  PARTNER_WRONG_ID: "Передан некорректный id партнёра",
+  PARTNER_NOT_FOUND: "Партнёр с таким id не найден",
+  PARTNER_EXISTS: "Партнёр с таким id уже существует",
 };
 
 const URL_REGEXP =
