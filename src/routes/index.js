@@ -5,7 +5,7 @@ const { login } = require("../controllers/users");
 const auth = require("../middlewares/auth");
 
 const userRouter = require("./users");
-const collectionRouter = require("./collection");
+const categoriesRouter = require("./categories");
 const statisticsRouter = require("./statistics");
 const exhibitRouter = require("./exhibits");
 const exhibitionRouter = require("./exhibitons");
@@ -21,7 +21,7 @@ routes.use(auth); // pass all get requests except of user token checking
 routes.use("/users", userRouter);
 routes.use("/exhibits", exhibitRouter);
 routes.use("/exhibitions", exhibitionRouter);
-routes.use("/collection", collectionRouter);
+routes.use("/categories", categoriesRouter);
 routes.use("/statistics", statisticsRouter);
 routes.use("/partners", partnerRouter);
 
