@@ -3,19 +3,20 @@ const router = require("express").Router();
 const {
   getCategories,
   createCategory,
+  deleteCategory,
   getCategoryExhibits,
+  updateCategory,
 } = require("../controllers/categories");
 
 const {
   categoryValidator,
+  categoryDeleteValidator,
 } = require("../middlewares/validators/categoryValidator");
 
 router.get("/", getCategories);
-router.post("/", createCategory);
+router.post("/", categoryValidator, createCategory);
+router.patch("/:category", updateCategory);
 router.get("/:category", getCategoryExhibits);
-// router.post("/", exhibitValidator, createExhibit);
-// router.get("/:exhibitId", exhibitIdValidator, findExhibitById);
-// router.delete("/:exhibitId", exhibitIdValidator, deleteExhibit);
-// router.patch("/:exhibitId", exhibitValidator, updateExhibit);
+router.delete("/:category", categoryDeleteValidator, deleteCategory);
 
 module.exports = router;

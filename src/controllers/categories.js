@@ -42,25 +42,26 @@ module.exports.createCategory = (req, res, next) => {
     .then((exhibit) => res.status(201).send(exhibit))
     .catch((error) => {
       if (error.name === "CastError") {
-        return next(new ValidationError(ERROR_MESSAGES.EXHIBIT_WRONG_ID));
+        return next(new ValidationError(ERROR_MESSAGES.CATEGORY_WRONG_ID));
       }
 
       if (error.name === "ValidationError") {
-        return next(new ValidationError(ERROR_MESSAGES.EXHIBIT_WRONG_DATA));
+        return next(new ValidationError(ERROR_MESSAGES.CATEGORY_WRONG_DATA));
       }
 
       if (error.code === 11000) {
-        return next(new ConflictError(ERROR_MESSAGES.EXHIBIT_EXISTS));
+        return next(new ConflictError(ERROR_MESSAGES.CATEGORY_EXISTS));
       }
 
       return next(error);
     });
 };
 
-module.exports.deleteExhibit = (req, res, next) => {
-  Exhibit.findOneAndDelete({ exhibitId: req.params.exhibitId })
+module.exports.deleteCategory = (req, res, next) => {
+  Category.findOneAndDelete({ category: req.params.category })
     .orFail()
-    .then((exhibit) => res.send(exhibit))
+    .select("category")
+    .then((category) => res.send(category))
     .catch((error) => {
       if (error.name === "CastError") {
         return next(new ValidationError(ERROR_MESSAGES.EXHIBIT_WRONG_ID));
@@ -74,8 +75,8 @@ module.exports.deleteExhibit = (req, res, next) => {
     });
 };
 
-module.exports.updateExhibit = (req, res, next) => {
-  Exhibit.findOneAndUpdate({ exhibitId: req.params.exhibitId }, req.body, {
+module.exports.updateCategory = (req, res, next) => {
+  Category.findOneAndUpdate({ category: req.params.category }, req.body, {
     new: true,
     runValidators: true,
   })
@@ -83,19 +84,19 @@ module.exports.updateExhibit = (req, res, next) => {
     .then((exhibit) => res.send(exhibit))
     .catch((error) => {
       if (error.name === "DocumentNotFoundError") {
-        return next(new NotFoundError(ERROR_MESSAGES.EXHIBIT_NOT_FOUND));
+        return next(new NotFoundError(ERROR_MESSAGES.CATEGORY_NOT_FOUND));
       }
 
       if (error.name === "ValidationError") {
-        return next(new ValidationError(ERROR_MESSAGES.EXHIBIT_WRONG_DATA));
+        return next(new ValidationError(ERROR_MESSAGES.CATEGORY_WRONG_DATA));
       }
 
       if (error.name === "CastError") {
-        return next(new NotFoundError(ERROR_MESSAGES.EXHIBIT_NOT_FOUND));
+        return next(new NotFoundError(ERROR_MESSAGES.CATEGORY_NOT_FOUND));
       }
 
       if (error.code === 11000) {
-        return next(new ConflictError(ERROR_MESSAGES.EXHIBIT_EXISTS));
+        return next(new ConflictError(ERROR_MESSAGES.CATEGORY_EXISTS));
       }
 
       return next(error);

@@ -24,6 +24,11 @@ const ERROR_MESSAGES = {
   PARTNER_WRONG_ID: "Передан некорректный id партнёра",
   PARTNER_NOT_FOUND: "Партнёр с таким id не найден",
   PARTNER_EXISTS: "Партнёр с таким id уже существует",
+
+  CATEGORY_WRONG_DATA: "При сохранении категории переданы невалидные данные",
+  CATEGORY_WRONG_ID: "Передано некорректное название категории",
+  CATEGORY_NOT_FOUND: "Категория с таким названием не найдена",
+  CATEGORY_EXISTS: "Категория с таким названием или путём уже существует",
 };
 
 const URL_REGEXP =
