@@ -11,7 +11,7 @@ const {
 const {
   exhibitValidator,
   exhibitIdValidator,
-} = require("../middlewares/exhibitValidator");
+} = require("../middlewares/validators/exhibitValidator");
 
 router.get("/", getExhibits);
 router.post("/", exhibitValidator, createExhibit);

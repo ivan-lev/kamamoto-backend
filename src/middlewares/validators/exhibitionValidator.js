@@ -1,6 +1,6 @@
 const { celebrate, Joi } = require("celebrate");
 
-const { URL_REGEXP } = require("../constants");
+const { REGEX } = require("../../constants");
 
 module.exports.exhibitionValidator = celebrate({
   body: Joi.object().keys({
@@ -11,7 +11,7 @@ module.exports.exhibitionValidator = celebrate({
     address: Joi.string().required(),
     place: Joi.string().required(),
     name: Joi.string().required(),
-    link: Joi.string().allow("").pattern(URL_REGEXP),
+    link: Joi.string().allow("").pattern(REGEX.URL),
     description: Joi.string().allow("").required(),
     photos: Joi.array().items(Joi.string()),
     poster: Joi.boolean().required(),

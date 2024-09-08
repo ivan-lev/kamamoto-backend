@@ -1,6 +1,6 @@
 const routes = require("express").Router();
 
-const { signValidator } = require("../middlewares/userValidator");
+const { signInValidator } = require("../middlewares/validators/userValidator");
 const { login } = require("../controllers/users");
 const auth = require("../middlewares/auth");
 
@@ -14,7 +14,7 @@ const partnerRouter = require("./partners");
 const { NotFoundError } = require("../errors");
 const { ERROR_MESSAGES } = require("../constants");
 
-routes.post("/signin", signValidator, login);
+routes.post("/signin", signInValidator, login);
 
 routes.use(auth); // pass all get requests except of user token checking
 

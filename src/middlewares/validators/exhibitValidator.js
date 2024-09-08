@@ -1,7 +1,5 @@
 const { celebrate, Joi } = require("celebrate");
 
-const { URL_REGEXP } = require("../constants");
-
 module.exports.exhibitValidator = celebrate({
   body: Joi.object().keys({
     id: Joi.number().min(0).max(9999).required(),
