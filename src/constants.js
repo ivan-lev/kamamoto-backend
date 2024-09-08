@@ -31,13 +31,9 @@ const ERROR_MESSAGES = {
   CATEGORY_EXISTS: "Категория с таким названием или путём уже существует",
 };
 
-// const URL_REGEXP =
-//   /(https?:\/\/)(www\.)?[\w-]+\.[a-z]{2,6}[\w\-._~:/?#[\]@!$&'()*+,;=]*/;
-
 const REGEX = {
   CATEGORY_EN: /^[a-z]+$/,
   CATEGORY_RU: /^[а-я]+$/,
-  EMAIL: /^[^@]+@[^@]+\.[^@]{2,}$/i,
   IMAGE: /\w+\.(jpe?g|webp)$/i,
   URL: /(https?:\/\/)(www\.)?[\w-]+\.[a-z]{2,6}[\w\-._~:/?#[\]@!$&'()*+,;=]*/,
 };
