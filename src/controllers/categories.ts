@@ -1,24 +1,34 @@
-const Category = require("../models/category");
+// const Category = require("../models/category");
 const Exhibit = require("../models/exhibit");
+
+import type { Exhibit } from "../types/exhibit";
+
+import { Request, Response, NextFunction } from "express";
+
+import Category from "../models/category";
 
 const { NotFoundError, ValidationError, ConflictError } = require("../errors");
 
 const { ERROR_MESSAGES } = require("../constants");
 
-module.exports.getCategories = (req, res, next) => {
+const getCategories = (req: Request, res: Response, next: NextFunction) => {
   Category.find({}, "-_id")
     .then((categories) => res.send(categories))
     .catch((error) => next(error));
 };
 
-module.exports.getCategoryExhibits = (req, res, next) => {
+const getCategoryExhibits = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   Category.findOne({ category: req.params.category })
     .orFail()
     .then((category) => {
       console.log(category._id.toString());
       Exhibit.find({ exhibitCategory: category._id })
-        .then((exhibits) => res.send(exhibits))
-        .catch((error) => {
+        .then((exhibits: Exhibit[]) => res.send(exhibits))
+        .catch((error: any) => {
           return next(error);
         });
     })
@@ -35,7 +45,7 @@ module.exports.getCategoryExhibits = (req, res, next) => {
     });
 };
 
-module.exports.createCategory = (req, res, next) => {
+const createCategory = (req: Request, res: Response, next: NextFunction) => {
   const category = req.body;
 
   Category.create({ ...category })
@@ -57,7 +67,7 @@ module.exports.createCategory = (req, res, next) => {
     });
 };
 
-module.exports.deleteCategory = (req, res, next) => {
+const deleteCategory = (req: Request, res: Response, next: NextFunction) => {
   Category.findOneAndDelete({ category: req.params.category })
     .orFail()
     .select("category")
@@ -75,7 +85,7 @@ module.exports.deleteCategory = (req, res, next) => {
     });
 };
 
-module.exports.updateCategory = (req, res, next) => {
+const updateCategory = (req: Request, res: Response, next: NextFunction) => {
   Category.findOneAndUpdate({ category: req.params.category }, req.body, {
     new: true,
     runValidators: true,
@@ -101,4 +111,12 @@ module.exports.updateCategory = (req, res, next) => {
 
       return next(error);
     });
+};
+
+export const category = {
+  createCategory,
+  deleteCategory,
+  getCategories,
+  getCategoryExhibits,
+  updateCategory,
 };

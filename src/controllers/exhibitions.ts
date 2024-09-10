@@ -1,16 +1,20 @@
-const Exhibition = require("../models/exhibition");
+// const Exhibition = require("../models/exhibition");
+
+import { Request, Response, NextFunction } from "express";
+
+import Exhibition from "../models/exhibition";
 
 const { NotFoundError, ValidationError, ConflictError } = require("../errors");
 
 const { ERROR_MESSAGES } = require("../constants");
 
-module.exports.getExhibitions = (req, res, next) => {
+const getExhibitions = (req: Request, res: Response, next: NextFunction) => {
   Exhibition.find({}, { _id: 0 })
     .then((exhibitions) => res.send(exhibitions))
     .catch((error) => next(error));
 };
 
-module.exports.createExhibition = (req, res, next) => {
+const createExhibition = (req: Request, res: Response, next: NextFunction) => {
   const exhibition = req.body;
 
   Exhibition.create({ ...exhibition })
@@ -36,7 +40,7 @@ module.exports.createExhibition = (req, res, next) => {
     });
 };
 
-module.exports.getExhibitionById = (req, res, next) => {
+const getExhibitionById = (req: Request, res: Response, next: NextFunction) => {
   Exhibition.findOne({ id: req.params.id }, { _id: 0 })
     .orFail()
     .then((exhibition) => {
@@ -55,7 +59,7 @@ module.exports.getExhibitionById = (req, res, next) => {
     });
 };
 
-module.exports.updateExhibition = (req, res, next) => {
+const updateExhibition = (req: Request, res: Response, next: NextFunction) => {
   Exhibition.findOneAndUpdate({ id: req.params.id }, req.body, {
     new: true,
     runValidators: true,
@@ -80,7 +84,7 @@ module.exports.updateExhibition = (req, res, next) => {
     });
 };
 
-module.exports.deleteExhibition = (req, res, next) => {
+const deleteExhibition = (req: Request, res: Response, next: NextFunction) => {
   Exhibition.findOneAndDelete({ id: req.params.id }, { _id: 0 })
     .orFail()
     .then((exhibition) => res.send(exhibition))
@@ -95,4 +99,12 @@ module.exports.deleteExhibition = (req, res, next) => {
 
       return next(error);
     });
+};
+
+export const exhibition = {
+  createExhibition,
+  deleteExhibition,
+  getExhibitions,
+  getExhibitionById,
+  updateExhibition,
 };

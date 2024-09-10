@@ -1,7 +1,12 @@
-const mongoose = require("mongoose");
-const validator = require("validator");
+// const mongoose = require("mongoose");
+// const validator = require("validator");
 
-const partnerSchema = new mongoose.Schema(
+import { model, Schema } from "mongoose";
+import validator from "validator";
+
+import { Partner } from "../types/partner";
+
+const partnerSchema = new Schema<Partner>(
   {
     title: {
       type: String,
@@ -12,7 +17,7 @@ const partnerSchema = new mongoose.Schema(
       type: String,
       required: [true, "Нужно указать ссылку на сайт организации"],
       validate: {
-        validator: (v) => validator.isURL(v),
+        validator: (value: string) => validator.isURL(value),
         message: "Некорректная ссылка",
       },
     },
@@ -30,4 +35,4 @@ const partnerSchema = new mongoose.Schema(
   { versionKey: false }
 );
 
-module.exports = mongoose.model("partner", partnerSchema);
+export default model<Partner>("partner", partnerSchema);

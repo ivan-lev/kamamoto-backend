@@ -1,7 +1,12 @@
-const mongoose = require("mongoose");
-const validator = require("validator");
+// const mongoose = require("mongoose");
+// const validator = require("validator");
 
-const exhibitionSchema = new mongoose.Schema(
+import { Schema, model } from "mongoose";
+import validator from "validator";
+
+import { Exhibition } from "../types/exhibition";
+
+const exhibitionSchema = new Schema<Exhibition>(
   {
     id: {
       type: Number,
@@ -44,6 +49,11 @@ const exhibitionSchema = new mongoose.Schema(
 
     link: {
       type: String,
+      validate: {
+        validator: (value: string) =>
+          validator.isURL(value) || value.length === 0,
+        message: "Некорректный URL выставки",
+      },
     },
 
     description: {
@@ -63,6 +73,7 @@ const exhibitionSchema = new mongoose.Schema(
     poster: {
       type: Boolean,
       required: [true, "Нужно указать есть ли постер у выставки"],
+      defaulr: false,
     },
 
     curators: {
@@ -82,4 +93,4 @@ const exhibitionSchema = new mongoose.Schema(
   { versionKey: false }
 );
 
-module.exports = mongoose.model("exhibition", exhibitionSchema);
+export default model<Exhibition>("exhibition", exhibitionSchema);

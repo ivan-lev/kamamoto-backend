@@ -1,16 +1,20 @@
-const Partner = require("../models/partner");
+// const Partner = require("../models/partner");
+
+import Partner from "../models/partner";
+
+import { Request, Response, NextFunction } from "express";
 
 const { NotFoundError, ValidationError, ConflictError } = require("../errors");
 
 const { ERROR_MESSAGES } = require("../constants");
 
-module.exports.getPartners = (req, res, next) => {
+const getPartners = (req: Request, res: Response, next: NextFunction) => {
   Partner.find({})
     .then((partners) => res.send(partners))
     .catch((error) => next(error));
 };
 
-module.exports.createPartner = (req, res, next) => {
+const createPartner = (req: Request, res: Response, next: NextFunction) => {
   const partner = req.body;
 
   Partner.create({ ...partner })
@@ -36,7 +40,7 @@ module.exports.createPartner = (req, res, next) => {
     });
 };
 
-module.exports.getPartnerById = (req, res, next) => {
+const getPartnerById = (req: Request, res: Response, next: NextFunction) => {
   Partner.findOne({ _id: req.params._id })
     .orFail()
     .then((partner) => {
@@ -55,7 +59,7 @@ module.exports.getPartnerById = (req, res, next) => {
     });
 };
 
-module.exports.updatePartner = (req, res, next) => {
+const updatePartner = (req: Request, res: Response, next: NextFunction) => {
   Partner.findOneAndUpdate({ _id: req.params._id }, req.body, {
     new: true,
     runValidators: true,
@@ -79,7 +83,7 @@ module.exports.updatePartner = (req, res, next) => {
     });
 };
 
-module.exports.deletePartner = (req, res, next) => {
+const deletePartner = (req: Request, res: Response, next: NextFunction) => {
   Partner.findOneAndDelete({ _id: req.params._id })
     .orFail()
     .select("_id")
@@ -95,4 +99,12 @@ module.exports.deletePartner = (req, res, next) => {
 
       return next(error);
     });
+};
+
+export const partners = {
+  createPartner,
+  deletePartner,
+  getPartnerById,
+  getPartners,
+  updatePartner,
 };
