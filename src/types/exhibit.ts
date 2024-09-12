@@ -1,11 +1,14 @@
+import { Types } from "mongoose";
+
 export type Exhibit = {
   id: number;
   name: string;
+  thumbnail: string;
   age?: string;
   potterName?: string;
   potterJapaneseName?: string;
   potterLifeDates?: string;
-  category: string;
+  category: Types.ObjectId;
   style: string;
   description: string;
 
@@ -22,7 +25,7 @@ export type Exhibit = {
   width?: number;
   diameter?: number;
   footDiameter?: number;
-  weigth?: number;
+  weight?: number;
   volume?: number;
   weightOfSet?: number;
   complectation: string;
