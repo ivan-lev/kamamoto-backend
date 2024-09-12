@@ -1,14 +1,11 @@
-// const Category = require("../models/category");
-const Exhibit = require("../models/exhibit");
-
-import type { Exhibit } from "../types/exhibit";
-
 import { Request, Response, NextFunction } from "express";
 
 import Category from "../models/category";
+import Exhibit from "../models/exhibit";
+
+import type { Exhibit as ExhibitType } from "../types/exhibit";
 
 const { NotFoundError, ValidationError, ConflictError } = require("../errors");
-
 const { ERROR_MESSAGES } = require("../constants");
 
 const getCategories = (req: Request, res: Response, next: NextFunction) => {
@@ -27,7 +24,7 @@ const getCategoryExhibits = (
     .then((category) => {
       console.log(category._id.toString());
       Exhibit.find({ exhibitCategory: category._id })
-        .then((exhibits: Exhibit[]) => res.send(exhibits))
+        .then((exhibits: ExhibitType[]) => res.send(exhibits))
         .catch((error: any) => {
           return next(error);
         });

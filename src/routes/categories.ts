@@ -1,15 +1,7 @@
 import { Router } from "express";
-const categoryRouter = Router();
-
 import { category } from "../controllers/categories";
 
-// const {
-//   getCategories,
-//   createCategory,
-//   deleteCategory,
-//   getCategoryExhibits,
-//   updateCategory,
-// } = require("../controllers/categories");
+const categoryRouter = Router();
 
 const {
   categoryValidator,

@@ -1,17 +1,7 @@
-// const router = require("express").Router();
-
 import { Router } from "express";
 import { exhibition } from "../controllers/exhibitions";
 
 const exhibitionRouter = Router();
-
-// const {
-//   getExhibitions,
-//   getExhibitionById,
-//   createExhibition,
-//   updateExhibition,
-//   deleteExhibition,
-// } = require("../controllers/exhibitions");
 
 const {
   exhibitionValidator,
@@ -36,5 +26,4 @@ exhibitionRouter.delete(
   exhibition.deleteExhibition
 );
 
-// module.exports = router;
 export default exhibitionRouter;

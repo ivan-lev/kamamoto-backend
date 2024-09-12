@@ -1,10 +1,6 @@
-// const Exhibition = require("../models/exhibition");
-const Exhibit = require("../models/exhibit");
-// const Category = require("../models/category");
-// const Partners = require("../models/partner");
-
 import { Request, Response, NextFunction } from "express";
 
+import Exhibit from "../models/exhibit";
 import Exhibition from "../models/exhibition";
 import Category from "../models/category";
 import Partners from "../models/partner";

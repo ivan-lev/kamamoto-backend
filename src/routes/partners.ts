@@ -1,16 +1,7 @@
-// const router = require("express").Router();
-
 import { Router } from "express";
-const partnerRouter = Router();
-
-// const {
-//   getPartners,
-//   createPartner,
-//   updatePartner,
-//   deletePartner,
-// } = require("../controllers/partners");
-
 import { partners } from "../controllers/partners";
+
+const partnerRouter = Router();
 
 const {
   partnerCreateValidator,

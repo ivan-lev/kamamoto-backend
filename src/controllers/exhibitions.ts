@@ -1,11 +1,8 @@
-// const Exhibition = require("../models/exhibition");
-
 import { Request, Response, NextFunction } from "express";
 
 import Exhibition from "../models/exhibition";
 
 const { NotFoundError, ValidationError, ConflictError } = require("../errors");
-
 const { ERROR_MESSAGES } = require("../constants");
 
 const getExhibitions = (req: Request, res: Response, next: NextFunction) => {

@@ -1,8 +1,5 @@
-// const mongoose = require("mongoose");
-// const validator = require("validator");
-
 import { Schema, model } from "mongoose";
-import validator from "validator";
+import { isURL } from "validator";
 
 import { Exhibition } from "../types/exhibition";
 
@@ -50,8 +47,7 @@ const exhibitionSchema = new Schema<Exhibition>(
     link: {
       type: String,
       validate: {
-        validator: (value: string) =>
-          validator.isURL(value) || value.length === 0,
+        validator: (value: string) => isURL(value) || value.length === 0,
         message: "Некорректный URL выставки",
       },
     },

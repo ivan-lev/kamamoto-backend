@@ -1,17 +1,18 @@
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const User = require("../models/user");
+import { Request, Response, NextFunction } from "express";
+import jwt from "jsonwebtoken";
 
-const { ValidationError, ConflictError } = require("../errors");
+import User from "../models/user";
+
+const { ValidationError, NotFoundError } = require("../errors");
 const { ERROR_MESSAGES } = require("../constants");
 
-const { JWT_SECRET, NODE_ENV } = process.env;
-
-module.exports.login = (req, res, next) => {
+export const login = (req: Request, res: Response, next: NextFunction) => {
   const { email, password } = req.body;
+  const NODE_ENV = process.env.NODE_ENV as string;
+  const JWT_SECRET = process.env.JWT_SECRET as string;
 
   return User.findUserByCredentials(email, password)
-    .then((user) => {
+    .then((user: any) => {
       const token = jwt.sign(
         { _id: user._id },
         NODE_ENV === "production" ? JWT_SECRET : "secret-key",
@@ -19,10 +20,10 @@ module.exports.login = (req, res, next) => {
       );
       res.send({ token });
     })
-    .catch((error) => next(error));
+    .catch((error: any) => next(error));
 };
 
-module.exports.checkToken = (req, res, next) => {
+export const checkToken = (req: any, res: Response, next: NextFunction) => {
   const currentUserId = req.user._id;
 
   User.findById(currentUserId, {

@@ -1,8 +1,5 @@
-// const mongoose = require("mongoose");
-// const validator = require("validator");
-
 import { model, Schema } from "mongoose";
-import validator from "validator";
+import { isURL } from "validator";
 
 import { Partner } from "../types/partner";
 
@@ -17,7 +14,7 @@ const partnerSchema = new Schema<Partner>(
       type: String,
       required: [true, "Нужно указать ссылку на сайт организации"],
       validate: {
-        validator: (value: string) => validator.isURL(value),
+        validator: (value: string) => isURL(value),
         message: "Некорректная ссылка",
       },
     },

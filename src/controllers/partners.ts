@@ -1,11 +1,8 @@
-// const Partner = require("../models/partner");
+import { Request, Response, NextFunction } from "express";
 
 import Partner from "../models/partner";
 
-import { Request, Response, NextFunction } from "express";
-
 const { NotFoundError, ValidationError, ConflictError } = require("../errors");
-
 const { ERROR_MESSAGES } = require("../constants");
 
 const getPartners = (req: Request, res: Response, next: NextFunction) => {
