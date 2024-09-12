@@ -1,4 +1,5 @@
-require("dotenv").config();
+import dotenv from "dotenv";
+dotenv.config();
 
 const {
   PORT = 3000,
@@ -7,9 +8,4 @@ const {
   JWT_SECRET = "secret-key",
 } = process.env;
 
-module.exports = {
-  PORT,
-  DB_URL,
-  NODE_ENV,
-  JWT_SECRET,
-};
+export { PORT, DB_URL, NODE_ENV, JWT_SECRET };
