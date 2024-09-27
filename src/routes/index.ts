@@ -7,11 +7,10 @@ import categoryRouter from "./categories";
 import statisticsRouter from "./statistics";
 import exhibitionRouter from "./exhibitions";
 import partnerRouter from "./partners";
-const exhibitRouter = require("./exhibits");
+import exhibitRouter from "./exhibits";
 
 import { signInValidator } from "../middlewares/validators/userValidator";
-
-const { NotFoundError } = require("../errors");
+import { NotFoundError } from "../errors/not-found-error";
 import { ERROR_MESSAGES } from "../constants";
 
 const routes = Router();

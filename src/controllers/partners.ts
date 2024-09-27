@@ -2,7 +2,9 @@ import { Request, Response, NextFunction } from "express";
 import Partner from "../models/partner";
 import { ERROR_MESSAGES } from "../constants";
 
-const { NotFoundError, ValidationError, ConflictError } = require("../errors");
+import { NotFoundError } from "../errors/not-found-error";
+import { ValidationError } from "../errors/validation-error";
+import { ConflictError } from "../errors/conflict-error";
 
 const getPartners = (req: Request, res: Response, next: NextFunction) => {
   Partner.find({})

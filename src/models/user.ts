@@ -3,7 +3,7 @@ import { isEmail } from "validator";
 import bcrypt from "bcryptjs";
 import { ERROR_MESSAGES } from "../constants";
 
-const { AuthorizationError } = require("../errors");
+import { AuthorizationError } from "../errors/authorization-error";
 
 const userSchema = new Schema(
   {

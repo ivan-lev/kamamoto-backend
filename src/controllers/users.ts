@@ -3,7 +3,8 @@ import jwt from "jsonwebtoken";
 import User from "../models/user";
 import { ERROR_MESSAGES } from "../constants";
 
-const { ValidationError, NotFoundError } = require("../errors");
+import { NotFoundError } from "../errors/not-found-error";
+import { ValidationError } from "../errors/validation-error";
 
 export const login = (req: Request, res: Response, next: NextFunction) => {
   const { email, password } = req.body;

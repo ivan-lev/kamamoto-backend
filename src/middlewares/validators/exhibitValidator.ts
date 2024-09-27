@@ -1,6 +1,6 @@
 import { celebrate, Joi } from 'celebrate';
 
-module.exports.exhibitValidator = celebrate({
+export const exhibitValidator = celebrate({
   body: Joi.object().keys({
     id: Joi.number().min(0).max(9999).required(),
     name: Joi.string().min(10).required(),
@@ -31,7 +31,7 @@ module.exports.exhibitValidator = celebrate({
   }),
 });
 
-module.exports.exhibitIdValidator = celebrate({
+export const exhibitIdValidator = celebrate({
   params: Joi.object().keys({
     id: Joi.number().min(0).max(9999).required(),
   }),
