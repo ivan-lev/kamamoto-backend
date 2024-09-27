@@ -1,4 +1,4 @@
-const { celebrate, Joi } = require("celebrate");
+import { celebrate, Joi } from 'celebrate';
 
 module.exports.exhibitValidator = celebrate({
   body: Joi.object().keys({

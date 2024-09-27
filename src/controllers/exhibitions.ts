@@ -1,9 +1,8 @@
 import { Request, Response, NextFunction } from "express";
-
 import Exhibition from "../models/exhibition";
+import { ERROR_MESSAGES } from "../constants";
 
 const { NotFoundError, ValidationError, ConflictError } = require("../errors");
-const { ERROR_MESSAGES } = require("../constants");
 
 const getExhibitions = (req: Request, res: Response, next: NextFunction) => {
   Exhibition.find({}, { _id: 0 })

@@ -1,13 +1,8 @@
 import { Router } from "express";
 import { partners } from "../controllers/partners";
+import { partnerCreateValidator, partnerUpdateValidator, partnerIdValidator } from "../middlewares/validators/partnerValidator";
 
 const partnerRouter = Router();
-
-const {
-  partnerCreateValidator,
-  partnerUpdateValidator,
-  partnerIdValidator,
-} = require("../middlewares/validators/partnerValidator");
 
 partnerRouter.get("/", partners.getPartners);
 partnerRouter.post("/", partnerCreateValidator, partners.createPartner);

@@ -1,12 +1,8 @@
 import { Router } from "express";
 import { exhibition } from "../controllers/exhibitions";
+import { exhibitionValidator, exhibitionIdValidator } from "../middlewares/validators/exhibitionValidator";
 
 const exhibitionRouter = Router();
-
-const {
-  exhibitionValidator,
-  exhibitionIdValidator,
-} = require("../middlewares/validators/exhibitionValidator");
 
 exhibitionRouter.get("/", exhibition.getExhibitions);
 exhibitionRouter.post("/", exhibitionValidator, exhibition.createExhibition);

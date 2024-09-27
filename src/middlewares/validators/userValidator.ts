@@ -1,6 +1,6 @@
-const { celebrate, Joi } = require("celebrate");
+import { celebrate, Joi } from 'celebrate';
 
-module.exports.signInValidator = celebrate({
+export const signInValidator = celebrate({
   body: Joi.object().keys({
     email: Joi.string().email().required(),
     password: Joi.string().required(),

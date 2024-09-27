@@ -1,5 +1,4 @@
-const { ERROR_MESSAGES } = require('../constants');
-
+import { ERROR_MESSAGES } from '../constants';
 import { Request, Response, NextFunction, ErrorRequestHandler } from "express";
 
 export const errorHandler: ErrorRequestHandler = (err: any, req: Request, res: Response, next: NextFunction) => {

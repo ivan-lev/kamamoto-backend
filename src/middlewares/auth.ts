@@ -1,9 +1,9 @@
 import { JWT_SECRET, NODE_ENV } from "../config";
-import { Request, Response, NextFunction } from "express";
+import { Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
+import { ERROR_MESSAGES } from "../constants";
 
 const { AuthorizationError } = require("../errors");
-const { ERROR_MESSAGES } = require("../constants");
 
 export const auth = (req: any, res: Response, next: NextFunction) => {
   const { authorization } = req.headers;

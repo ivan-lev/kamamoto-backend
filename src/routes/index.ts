@@ -9,10 +9,10 @@ import exhibitionRouter from "./exhibitions";
 import partnerRouter from "./partners";
 const exhibitRouter = require("./exhibits");
 
-const { signInValidator } = require("../middlewares/validators/userValidator");
+import { signInValidator } from "../middlewares/validators/userValidator";
 
 const { NotFoundError } = require("../errors");
-const { ERROR_MESSAGES } = require("../constants");
+import { ERROR_MESSAGES } from "../constants";
 
 const routes = Router();
 

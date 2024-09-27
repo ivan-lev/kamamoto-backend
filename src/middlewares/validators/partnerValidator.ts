@@ -1,8 +1,7 @@
-const { celebrate, Joi } = require("celebrate");
+import { celebrate, Joi } from 'celebrate';
+import { REGEX } from '../../constants';
 
-const { REGEX } = require("../../constants");
-
-module.exports.partnerCreateValidator = celebrate({
+export const partnerCreateValidator = celebrate({
   body: Joi.object().keys({
     title: Joi.string().required(),
     link: Joi.string().pattern(REGEX.URL).required(),
@@ -11,7 +10,7 @@ module.exports.partnerCreateValidator = celebrate({
   }),
 });
 
-module.exports.partnerUpdateValidator = celebrate({
+export const partnerUpdateValidator = celebrate({
   body: Joi.object().keys({
     _id: Joi.string().hex().required(),
     title: Joi.string().required(),
@@ -21,7 +20,7 @@ module.exports.partnerUpdateValidator = celebrate({
   }),
 });
 
-module.exports.partnerIdValidator = celebrate({
+export const partnerIdValidator = celebrate({
   params: Joi.object().keys({
     _id: Joi.string().hex().required(),
   }),

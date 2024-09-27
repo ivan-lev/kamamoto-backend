@@ -1,9 +1,9 @@
 import { model, Schema } from "mongoose";
 import { isEmail } from "validator";
 import bcrypt from "bcryptjs";
+import { ERROR_MESSAGES } from "../constants";
 
 const { AuthorizationError } = require("../errors");
-const { ERROR_MESSAGES } = require("../constants");
 
 const userSchema = new Schema(
   {

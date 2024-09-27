@@ -1,8 +1,7 @@
-const { celebrate, Joi } = require("celebrate");
+import { celebrate, Joi } from 'celebrate';
+import { REGEX } from '../../constants';
 
-const { REGEX } = require("../../constants");
-
-module.exports.exhibitionValidator = celebrate({
+export const exhibitionValidator = celebrate({
   body: Joi.object().keys({
     id: Joi.number().greater(0).required(),
     year: Joi.number().greater(2020).required(),
@@ -11,17 +10,17 @@ module.exports.exhibitionValidator = celebrate({
     address: Joi.string().required(),
     place: Joi.string().required(),
     name: Joi.string().required(),
-    link: Joi.string().allow("").pattern(REGEX.URL),
-    description: Joi.string().allow("").required(),
+    link: Joi.string().allow('').pattern(REGEX.URL),
+    description: Joi.string().allow('').required(),
     photos: Joi.array().items(Joi.string()),
     poster: Joi.boolean().required(),
-    curators: Joi.string().allow(""),
-    organisators: Joi.string().allow(""),
+    curators: Joi.string().allow(''),
+    organisators: Joi.string().allow(''),
     isActive: Joi.boolean().required(),
   }),
 });
 
-module.exports.exhibitionIdValidator = celebrate({
+export const exhibitionIdValidator = celebrate({
   params: Joi.object().keys({
     id: Joi.number().greater(0).required(),
   }),

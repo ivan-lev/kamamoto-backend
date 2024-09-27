@@ -1,10 +1,9 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
-
 import User from "../models/user";
+import { ERROR_MESSAGES } from "../constants";
 
 const { ValidationError, NotFoundError } = require("../errors");
-const { ERROR_MESSAGES } = require("../constants");
 
 export const login = (req: Request, res: Response, next: NextFunction) => {
   const { email, password } = req.body;

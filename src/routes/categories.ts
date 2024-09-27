@@ -1,12 +1,8 @@
 import { Router } from "express";
 import { category } from "../controllers/categories";
+import { categoryValidator, categoryDeleteValidator } from "../middlewares/validators/categoryValidator";
 
 const categoryRouter = Router();
-
-const {
-  categoryValidator,
-  categoryDeleteValidator,
-} = require("../middlewares/validators/categoryValidator");
 
 categoryRouter.get("/", category.getCategories);
 categoryRouter.post("/", categoryValidator, category.createCategory);
