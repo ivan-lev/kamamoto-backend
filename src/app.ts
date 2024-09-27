@@ -1,4 +1,6 @@
-require("dotenv").config();
+import dotenv from "dotenv";
+dotenv.config();
+
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -8,10 +10,10 @@ const { errors } = require("celebrate");
 
 const { limiter } = require("./middlewares/limiter");
 const { requestLogger, errorLogger } = require("./middlewares/logger");
-const { errorHandler } = require("./middlewares/error-handler");
+import { errorHandler } from "./middlewares/error-handler";
 const { routes } = require("./routes");
 
-const { PORT, DB_URL } = require("./config");
+import { PORT, DB_URL } from "./config";
 
 const app = express();
 

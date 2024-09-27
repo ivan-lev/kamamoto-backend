@@ -1,6 +1,8 @@
-const { ERROR_MESSAGES } = require("../constants");
+const { ERROR_MESSAGES } = require('../constants');
 
-module.exports.errorHandler = (err, req, res, next) => {
+import { Request, Response, NextFunction, ErrorRequestHandler } from "express";
+
+export const errorHandler: ErrorRequestHandler = (err: any, req: Request, res: Response, next: NextFunction) => {
   // if error was not catched before, give it status 500
   const { statusCode = 500, message } = err;
 
