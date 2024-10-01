@@ -1,8 +1,8 @@
-import { Router } from "express";
-import { getStatistics } from "../controllers/statistics";
+import { Router } from 'express'
+import { getStatistics } from '../controllers/statistics'
 
-const statisticsRouter = Router();
+const statisticsRouter = Router()
 
-statisticsRouter.get("/", getStatistics);
+statisticsRouter.get('/', getStatistics)
 
-export default statisticsRouter;
+export default statisticsRouter

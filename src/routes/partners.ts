@@ -1,12 +1,12 @@
-import { Router } from "express";
-import { partners } from "../controllers/partners";
-import { partnerCreateValidator, partnerUpdateValidator, partnerIdValidator } from "../middlewares/validators/partnerValidator";
+import { Router } from 'express'
+import { partners } from '../controllers/partners'
+import { partnerCreateValidator, partnerUpdateValidator, partnerIdValidator } from '../middlewares/validators/partnerValidator'
 
-const partnerRouter = Router();
+const partnerRouter = Router()
 
-partnerRouter.get("/", partners.getPartners);
-partnerRouter.post("/", partnerCreateValidator, partners.createPartner);
-partnerRouter.patch("/:_id", partnerUpdateValidator, partners.updatePartner);
-partnerRouter.delete("/:_id", partnerIdValidator, partners.deletePartner);
+partnerRouter.get('/', partners.getPartners)
+partnerRouter.post('/', partnerCreateValidator, partners.createPartner)
+partnerRouter.patch('/:_id', partnerUpdateValidator, partners.updatePartner)
+partnerRouter.delete('/:_id', partnerIdValidator, partners.deletePartner)
 
-export default partnerRouter;
+export default partnerRouter

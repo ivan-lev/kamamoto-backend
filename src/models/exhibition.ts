@@ -1,92 +1,92 @@
-import { Schema, model } from "mongoose";
-import { isURL } from "validator";
+import { Schema, model } from 'mongoose'
+import { isURL } from 'validator'
 
-import { Exhibition } from "../types/exhibition";
+import { type Exhibition } from '../types/exhibition'
 
 const exhibitionSchema = new Schema<Exhibition>(
   {
     id: {
       type: Number,
-      required: [true, "Нужно указать id выставки"],
-      unique: true,
+      required: [true, 'Нужно указать id выставки'],
+      unique: true
     },
 
     year: {
       type: Number,
-      required: [true, "Нужно указать год проведени выставки"],
+      required: [true, 'Нужно указать год проведени выставки']
     },
 
     dates: {
       type: String,
-      required: [true, "Нужно указать даты начала и конца выставки"],
+      required: [true, 'Нужно указать даты начала и конца выставки']
     },
 
     city: {
       type: String,
-      required: [true, "Нужно указать город, где была выставка"],
+      required: [true, 'Нужно указать город, где была выставка']
     },
 
     address: {
       type: String,
-      required: [true, "Нужно указать адрес, по которому проходила выставка"],
+      required: [true, 'Нужно указать адрес, по которому проходила выставка']
     },
 
     place: {
       type: String,
       required: [
         true,
-        "Нужно указать название заведения, где проходила выставка",
-      ],
+        'Нужно указать название заведения, где проходила выставка'
+      ]
     },
 
     name: {
       type: String,
-      required: [true, "Нужно указать название выставки"],
+      required: [true, 'Нужно указать название выставки']
     },
 
     link: {
       type: String,
       validate: {
         validator: (value: string) => isURL(value) || value.length === 0,
-        message: "Некорректный URL выставки",
-      },
+        message: 'Некорректный URL выставки'
+      }
     },
 
     description: {
       type: String,
-      required: [true, "Нужно заполнить описание выставки"],
+      required: [true, 'Нужно заполнить описание выставки']
     },
 
     photos: {
       type: [
         {
-          type: String,
-        },
+          type: String
+        }
       ],
-      default: [],
+      default: []
     },
 
     poster: {
       type: Boolean,
-      required: [true, "Нужно указать есть ли постер у выставки"],
-      defaulr: false,
+      required: [true, 'Нужно указать есть ли постер у выставки'],
+      defaulr: false
     },
 
     curators: {
-      type: String,
+      type: String
     },
 
     organisators: {
-      type: String,
+      type: String
     },
 
     isActive: {
       type: Boolean,
-      required: [true, "Нужно указать, показывать страницу или нет"],
-    },
+      required: [true, 'Нужно указать, показывать страницу или нет']
+    }
   },
 
   { versionKey: false }
-);
+)
 
-export default model<Exhibition>("exhibition", exhibitionSchema);
+export default model<Exhibition>('exhibition', exhibitionSchema)

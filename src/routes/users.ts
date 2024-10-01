@@ -1,8 +1,8 @@
-import { Router } from "express";
-import { checkToken } from "../controllers/users";
+import { Router } from 'express'
+import { checkToken } from '../controllers/users'
 
-const userRouter = Router();
+const userRouter = Router()
 
-userRouter.get("/", checkToken);
+userRouter.get('/', checkToken)
 
-export default userRouter;
+export default userRouter
