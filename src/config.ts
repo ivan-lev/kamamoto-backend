@@ -1,4 +1,5 @@
 import 'dotenv/config'
+import path from 'path'
 
 const {
   PORT = 3000,
@@ -7,4 +8,6 @@ const {
   JWT_SECRET = 'secret-key'
 } = process.env
 
-export { PORT, DB_URL, NODE_ENV, JWT_SECRET }
+const PUBLIC_PATH = path.join(__dirname, 'public')
+
+export { PORT, DB_URL, NODE_ENV, JWT_SECRET, PUBLIC_PATH }
