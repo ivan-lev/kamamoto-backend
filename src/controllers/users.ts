@@ -1,5 +1,5 @@
-import dotenv from 'dotenv'
 import jwt from 'jsonwebtoken'
+import { JWT_SECRET, NODE_ENV } from '../config'
 
 import User from '../models/user'
 
@@ -9,13 +9,8 @@ import { NotFoundError } from '../errors/not-found-error'
 import { ValidationError } from '../errors/validation-error'
 import { ERROR_MESSAGES } from '../constants'
 
-dotenv.config()
-
 export const login = (req: Request, res: Response, next: NextFunction): void => {
   const { email, password } = req.body
-
-  const NODE_ENV = process.env.NODE_ENV ?? 'NODE_ENV_UNDEFINED'
-  const JWT_SECRET = process.env.JWT_SECRET ?? 'KEY_UNDEFINED'
 
   return User.findUserByCredentials(email as string, password as string)
     .then((user: any) => {

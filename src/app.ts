@@ -1,4 +1,4 @@
-import dotenv from 'dotenv'
+import 'dotenv/config'
 
 import express from 'express'
 import mongoose from 'mongoose'
@@ -6,16 +6,14 @@ import cors from 'cors'
 import bodyParser from 'body-parser'
 import helmet from 'helmet'
 
-import { limiter } from './middlewares/limiter'
+import limiter from './middlewares/limiter'
 import { requestLogger, errorLogger } from './middlewares/logger'
 import { errors } from 'celebrate'
 import { errorHandler } from './middlewares/error-handler'
 import routes from './routes'
 
-dotenv.config()
+import { PORT, DB_URL } from './config'
 
-const PORT = process.env.PORT ?? '3001'
-const DB_URL: string = process.env.DB_URL ?? 'mongodb://127.0.0.1:27017/kamamotodb'
 const app = express()
 
 mongoose.connect(DB_URL).catch((error: any) => { console.log(error) })
