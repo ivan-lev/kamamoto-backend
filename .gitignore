@@ -15,6 +15,6 @@ node_modules
 .vscode
 
 #Local files (pictures and other)
-exhibits
+public
 
 .env

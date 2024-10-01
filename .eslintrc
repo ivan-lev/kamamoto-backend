@@ -23,5 +23,6 @@
   },
   "rules": {
     "no-underscore-dangle": ["error", { "allow": ["_id"] }],
+    "@typescript-eslint/consistent-type-definitions": "off"
   }
 }
