@@ -1,5 +1,5 @@
-import { celebrate, Joi } from 'celebrate';
-import { REGEX } from '../../constants';
+import { celebrate, Joi } from 'celebrate'
+import { REGEX } from '../../constants'
 
 export const exhibitionValidator = celebrate({
   body: Joi.object().keys({
@@ -16,12 +16,12 @@ export const exhibitionValidator = celebrate({
     poster: Joi.boolean().required(),
     curators: Joi.string().allow(''),
     organisators: Joi.string().allow(''),
-    isActive: Joi.boolean().required(),
-  }),
-});
+    isActive: Joi.boolean().required()
+  })
+})
 
 export const exhibitionIdValidator = celebrate({
   params: Joi.object().keys({
-    id: Joi.number().greater(0).required(),
-  }),
-});
+    id: Joi.number().greater(0).required()
+  })
+})
