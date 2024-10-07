@@ -25,17 +25,24 @@ export const ERROR_MESSAGES = {
   PARTNER_NOT_FOUND: 'Партнёр с таким id не найден',
   PARTNER_EXISTS: 'Партнёр с таким id уже существует',
 
+  LETTER_WRONG_DATA: 'При сохранении письма переданы невалидные данные',
+  LETTER_WRONG_ID: 'Передан некорректный id письма',
+  LETTER_NOT_FOUND: 'Письмо с таким id не найден',
+  LETTER_EXISTS: 'Письмо с таким id уже существует',
+
   CATEGORY_WRONG_DATA: 'При сохранении категории переданы невалидные данные',
   CATEGORY_WRONG_ID: 'Передано некорректное название категории',
   CATEGORY_NOT_FOUND: 'Категория с таким названием не найдена',
-  CATEGORY_EXISTS: 'Категория с таким названием или путём уже существует',
-};
+  CATEGORY_EXISTS: 'Категория с таким названием или путём уже существует'
+}
 
 export const REGEX = {
   CATEGORY_EN: /^[a-z]+$/,
   CATEGORY_RU: /^[а-я]+$/,
   IMAGE: /\w+\.(jpe?g|webp)$/i,
-  URL: /(https?:\/\/)(www\.)?[\w-]+\.[a-z]{2,6}[\w\-._~:/?#[\]@!$&'()*+,;=]*/,
-};
+  URL: /(https?:\/\/)(www\.)?[\w-]+\.[a-z]{2,6}[\w\-._~:/?#[\]@!$&'()*+,;=]*/
+}
 
-// module.exports = { REGEX };
+export const PATHS = {
+  LETTERS: 'letters'
+}

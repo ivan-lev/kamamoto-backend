@@ -8,6 +8,7 @@ import statisticsRouter from './statistics'
 import exhibitionRouter from './exhibitions'
 import partnerRouter from './partners'
 import exhibitRouter from './exhibits'
+import lettersRouter from './letters'
 
 import { signInValidator } from '../middlewares/validators/userValidator'
 import { NotFoundError } from '../errors/not-found-error'
@@ -23,6 +24,7 @@ routes.use('/exhibitions', exhibitionRouter)
 routes.use('/categories', categoryRouter)
 routes.use('/statistics', statisticsRouter)
 routes.use('/partners', partnerRouter)
+routes.use('/letters', lettersRouter)
 routes.all('*', (req, res, next) => { next(new NotFoundError(ERROR_MESSAGES.PAGE_NOT_FOUND)) }
 )
 
