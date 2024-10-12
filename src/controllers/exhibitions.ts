@@ -1,106 +1,106 @@
-import { type Request, type Response, type NextFunction } from 'express'
+import type { NextFunction, Request, Response } from 'express';
 
-import Exhibition from '../models/exhibition'
+import type { Exhibition as ExhibitionType } from '../types/exhibition';
 
-import type { Exhibition as ExhibitionType } from '../types/exhibition'
+import { ERROR_MESSAGES } from '../constants';
 
-import { NotFoundError } from '../errors/not-found-error'
-import { ValidationError } from '../errors/validation-error'
-import { ConflictError } from '../errors/conflict-error'
-import { ERROR_MESSAGES } from '../constants'
+import { ConflictError } from '../errors/conflict-error';
+import { NotFoundError } from '../errors/not-found-error';
+import { ValidationError } from '../errors/validation-error';
+import Exhibition from '../models/exhibition';
 
-const getExhibitions = (req: Request, res: Response, next: NextFunction): void => {
+function getExhibitions(req: Request, res: Response, next: NextFunction): void {
   Exhibition.find({}, { _id: 0 })
-    .then((exhibitions) => res.send(exhibitions))
-    .catch((error) => { next(error) })
+    .then(exhibitions => res.send(exhibitions))
+    .catch((error) => { return next(error); });
 }
 
-const createExhibition = (req: Request, res: Response, next: NextFunction): void => {
-  const exhibition = req.body
+function createExhibition(req: Request, res: Response, next: NextFunction): void {
+  const exhibition = req.body;
 
   Exhibition.create({ ...exhibition })
-    .then((exhibition) => res.status(201).send(exhibition))
+    .then(exhibition => res.status(201).send(exhibition))
     .catch((error) => {
       if (error.name === 'CastError') {
-        next(new ValidationError(ERROR_MESSAGES.EXHIBITION_WRONG_ID)); return
+        return next(new ValidationError(ERROR_MESSAGES.EXHIBITION_WRONG_ID));
       }
 
       if (error.name === 'ValidationError') {
-        next(new ValidationError(ERROR_MESSAGES.EXHIBITION_WRONG_DATA)); return
+        return next(new ValidationError(ERROR_MESSAGES.EXHIBITION_WRONG_DATA));
       }
 
       if (error.code === 11000) {
-        next(new ConflictError(ERROR_MESSAGES.EXHIBITION_EXISTS)); return
+        return next(new ConflictError(ERROR_MESSAGES.EXHIBITION_EXISTS));
       }
 
       if (error.name === 'DocumentNotFoundError') {
-        next(new NotFoundError(ERROR_MESSAGES.EXHIBITION_NOT_FOUND)); return
+        return next(new NotFoundError(ERROR_MESSAGES.EXHIBITION_NOT_FOUND));
       }
 
-      next(error)
-    })
+      return next(error);
+    });
 }
 
-const getExhibitionById = (req: Request, res: Response, next: NextFunction): void => {
+function getExhibitionById(req: Request, res: Response, next: NextFunction): void {
   Exhibition.findOne({ id: req.params.id }, { _id: 0 })
     .orFail()
     .then((exhibition) => {
-      res.send(exhibition)
+      res.send(exhibition);
     })
     .catch((error) => {
       if (error.name === 'CastError') {
-        next(new ValidationError(ERROR_MESSAGES.EXHIBIT_WRONG_ID)); return
+        return next(new ValidationError(ERROR_MESSAGES.EXHIBIT_WRONG_ID));
       }
 
       if (error.name === 'DocumentNotFoundError') {
-        next(new NotFoundError(ERROR_MESSAGES.EXHIBIT_NOT_FOUND)); return
+        return next(new NotFoundError(ERROR_MESSAGES.EXHIBIT_NOT_FOUND));
       }
 
-      next(error)
-    })
+      return next(error);
+    });
 }
 
-const updateExhibition = (req: Request, res: Response, next: NextFunction): void => {
-  const newExhibitionData: ExhibitionType = req.body
+function updateExhibition(req: Request, res: Response, next: NextFunction): void {
+  const newExhibitionData: ExhibitionType = req.body;
   Exhibition.findOneAndUpdate({ id: req.params.id }, newExhibitionData, {
     new: true,
     runValidators: true,
-    projection: { _id: 0 }
+    projection: { _id: 0 },
   })
     .orFail()
-    .then((exhibition) => res.send(exhibition))
+    .then(exhibition => res.send(exhibition))
     .catch((error) => {
       if (error.name === 'DocumentNotFoundError') {
-        next(new NotFoundError(ERROR_MESSAGES.EXHIBITION_NOT_FOUND)); return
+        return next(new NotFoundError(ERROR_MESSAGES.EXHIBITION_NOT_FOUND));
       }
 
       if (error.name === 'ValidationError') {
-        next(new ValidationError(ERROR_MESSAGES.EXHIBITION_WRONG_DATA)); return
+        return next(new ValidationError(ERROR_MESSAGES.EXHIBITION_WRONG_DATA));
       }
 
       if (error.name === 'CastError') {
-        next(new NotFoundError(ERROR_MESSAGES.EXHIBITION_NOT_FOUND)); return
+        return next(new NotFoundError(ERROR_MESSAGES.EXHIBITION_NOT_FOUND));
       }
 
-      next(error)
-    })
+      return next(error);
+    });
 }
 
-const deleteExhibition = (req: Request, res: Response, next: NextFunction): void => {
+function deleteExhibition(req: Request, res: Response, next: NextFunction): void {
   Exhibition.findOneAndDelete({ id: req.params.id }, { _id: 0 })
     .orFail()
-    .then((exhibition) => res.send(exhibition))
+    .then(exhibition => res.send(exhibition))
     .catch((error) => {
       if (error.name === 'CastError') {
-        next(new ValidationError(ERROR_MESSAGES.EXHIBITION_WRONG_ID)); return
+        return next(new ValidationError(ERROR_MESSAGES.EXHIBITION_WRONG_ID));
       }
 
       if (error.name === 'DocumentNotFoundError') {
-        next(new NotFoundError(ERROR_MESSAGES.EXHIBITION_NOT_FOUND)); return
+        return next(new NotFoundError(ERROR_MESSAGES.EXHIBITION_NOT_FOUND));
       }
 
-      next(error)
-    })
+      return next(error);
+    });
 }
 
 export const exhibition = {
@@ -108,5 +108,5 @@ export const exhibition = {
   deleteExhibition,
   getExhibitions,
   getExhibitionById,
-  updateExhibition
-}
+  updateExhibition,
+};
