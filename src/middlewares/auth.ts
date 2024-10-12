@@ -1,33 +1,36 @@
-import { JWT_SECRET, NODE_ENV } from '../config'
-import { type Response, type NextFunction } from 'express'
-import jwt from 'jsonwebtoken'
-import { ERROR_MESSAGES } from '../constants'
-import { AuthorizationError } from '../errors/authorization-error'
+import type { NextFunction, Response } from 'express';
 
-export const auth = (req: any, res: Response, next: NextFunction): void => {
-  const { authorization }: { authorization: string } = req.headers
+import jwt from 'jsonwebtoken';
+import { JWT_SECRET, NODE_ENV } from '../config';
+import { ERROR_MESSAGES } from '../constants';
+import { AuthorizationError } from '../errors/authorization-error';
+
+export function auth(req: any, res: Response, next: NextFunction): void {
+  const { authorization }: { authorization: string } = req.headers;
 
   // pass next all get requests if it is not user login checking
   if (req.method === 'GET' && req.originalUrl !== '/users/') {
-    next(); return
+    return next();
   }
 
   if (!authorization?.startsWith('Bearer ')) {
-    next(new AuthorizationError(ERROR_MESSAGES.UNAUTHORIZED)); return
+    return next(new AuthorizationError(ERROR_MESSAGES.UNAUTHORIZED));
   }
 
-  const token: string = authorization.replace('Bearer ', '')
-  let payload
+  const token: string = authorization.replace('Bearer ', '');
+  let payload;
 
   try {
     payload = jwt.verify(
       token,
-      NODE_ENV === 'production' ? JWT_SECRET : 'secret-key'
-    )
-  } catch (err) {
-    next(new AuthorizationError(ERROR_MESSAGES.UNAUTHORIZED)); return
+      NODE_ENV === 'production' ? JWT_SECRET : 'secret-key',
+    );
+  }
+  catch (error) {
+    console.error(error);
+    return next(new AuthorizationError(ERROR_MESSAGES.UNAUTHORIZED));
   }
 
-  req.user = payload
-  next()
+  req.user = payload;
+  next();
 }

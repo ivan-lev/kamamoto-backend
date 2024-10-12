@@ -1,4 +1,4 @@
-import { celebrate, Joi } from 'celebrate'
+import { celebrate, Joi } from 'celebrate';
 
 export const exhibitValidator = celebrate({
   body: Joi.object().keys({
@@ -27,12 +27,12 @@ export const exhibitValidator = celebrate({
     volume: Joi.number(),
     weightOfSet: Joi.number(),
     complectation: Joi.string().required(),
-    preservation: Joi.string().required()
-  })
-})
+    preservation: Joi.string().required(),
+  }),
+});
 
 export const exhibitIdValidator = celebrate({
   params: Joi.object().keys({
-    id: Joi.number().min(0).max(9999).required()
-  })
-})
+    id: Joi.number().min(0).max(9999).required(),
+  }),
+});
