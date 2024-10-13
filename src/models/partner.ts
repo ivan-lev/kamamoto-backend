@@ -1,13 +1,13 @@
-import { model, Schema } from 'mongoose'
-import { isURL } from 'validator'
+import type { Partner } from '../types/partner';
+import { model, Schema } from 'mongoose';
 
-import { type Partner } from '../types/partner'
+import { isURL } from 'validator';
 
 const partnerSchema = new Schema<Partner>(
   {
     title: {
       type: String,
-      required: [true, 'Нужно указать название организации']
+      required: [true, 'Нужно указать название организации'],
     },
 
     link: {
@@ -15,21 +15,21 @@ const partnerSchema = new Schema<Partner>(
       required: [true, 'Нужно указать ссылку на сайт организации'],
       validate: {
         validator: (value: string) => isURL(value),
-        message: 'Некорректная ссылка'
-      }
+        message: 'Некорректная ссылка',
+      },
     },
 
     logo: {
       type: String,
-      required: [true, 'Нужно указать название логотипа']
+      required: [true, 'Нужно указать название логотипа'],
     },
 
     isActive: {
       type: Boolean,
-      required: [true, 'Нужно указать активность партнёра']
-    }
+      required: [true, 'Нужно указать активность партнёра'],
+    },
   },
-  { versionKey: false }
-)
+  { versionKey: false },
+);
 
-export default model<Partner>('partner', partnerSchema)
+export default model<Partner>('partner', partnerSchema);

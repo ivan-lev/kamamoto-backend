@@ -1,9 +1,9 @@
-import { model, Schema } from 'mongoose'
-import { isEmail } from 'validator'
-import bcrypt from 'bcryptjs'
+import bcrypt from 'bcryptjs';
+import { model, Schema } from 'mongoose';
+import { isEmail } from 'validator';
 
-import { AuthorizationError } from '../errors/authorization-error'
-import { ERROR_MESSAGES } from '../constants'
+import { ERROR_MESSAGES } from '../constants';
+import { AuthorizationError } from '../errors/authorization-error';
 
 const userSchema = new Schema(
   {
@@ -13,43 +13,43 @@ const userSchema = new Schema(
       unique: [true, 'Этот адрес почты уже используется'],
       validate: {
         validator: (value: string) => isEmail(value),
-        message: 'Некорректный email'
-      }
+        message: 'Некорректный email',
+      },
     },
 
     password: {
       type: String,
       required: [true, 'Поле password должно быть заполнено'],
-      select: false
-    }
+      select: false,
+    },
   },
   {
     statics: {
-      findUserByCredentials (email: string, password: string): any {
+      findUserByCredentials(email: string, password: string): any {
         return this.findOne({ email })
           .select('+password')
           .then(async (user: any) => {
             if (user.email === undefined) {
               throw new AuthorizationError(
-                ERROR_MESSAGES.USER_WRONG_CREDENTIALS
-              )
+                ERROR_MESSAGES.USER_WRONG_CREDENTIALS,
+              );
             }
             return await bcrypt
               .compare(password, user.password as string)
               .then((matched: boolean) => {
                 if (!matched) {
                   throw new AuthorizationError(
-                    ERROR_MESSAGES.USER_WRONG_CREDENTIALS
-                  )
+                    ERROR_MESSAGES.USER_WRONG_CREDENTIALS,
+                  );
                 }
-                return user
-              })
-          })
-      }
+                return user;
+              });
+          });
+      },
     },
-    versionKey: false
-  }
-)
+    versionKey: false,
+  },
+);
 
 // userSchema.statics.findUserByCredentials = function (email, password) {
 //   return this.findOne({ email })
@@ -69,4 +69,4 @@ const userSchema = new Schema(
 //     });
 // };
 
-export default model('user', userSchema)
+export default model('user', userSchema);

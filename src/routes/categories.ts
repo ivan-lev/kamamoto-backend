@@ -1,17 +1,17 @@
-import { Router } from 'express'
-import { category } from '../controllers/categories'
-import { categoryValidator, categoryDeleteValidator } from '../middlewares/validators/categoryValidator'
+import { Router } from 'express';
+import { category } from '../controllers/categories';
+import { categoryDeleteValidator, categoryValidator } from '../middlewares/validators/categoryValidator';
 
-const categoryRouter = Router()
+const categoryRouter = Router();
 
-categoryRouter.get('/', category.getCategories)
-categoryRouter.post('/', categoryValidator, category.createCategory)
-categoryRouter.patch('/:category', category.updateCategory)
-categoryRouter.get('/:category', category.getCategoryExhibits)
+categoryRouter.get('/', category.getCategories);
+categoryRouter.post('/', categoryValidator, category.createCategory);
+categoryRouter.patch('/:category', category.updateCategory);
+categoryRouter.get('/:category', category.getCategoryExhibits);
 categoryRouter.delete(
   '/:category',
   categoryDeleteValidator,
-  category.deleteCategory
-)
+  category.deleteCategory,
+);
 
-export default categoryRouter
+export default categoryRouter;
