@@ -1,37 +1,38 @@
-import 'dotenv/config'
+import bodyParser from 'body-parser';
+import { errors } from 'celebrate';
+import cors from 'cors';
+import express from 'express';
+import helmet, { type HelmetOptions } from 'helmet';
+import mongoose from 'mongoose';
 
-import express from 'express'
-import mongoose from 'mongoose'
-import cors from 'cors'
-import bodyParser from 'body-parser'
-import helmet, { type HelmetOptions } from 'helmet'
+import { DB_URL, PORT, PUBLIC_FOLDER } from './config';
 
-import limiter from './middlewares/limiter'
-import { requestLogger, errorLogger } from './middlewares/logger'
-import { errors } from 'celebrate'
-import { errorHandler } from './middlewares/error-handler'
-import routes from './routes'
+import { errorHandler } from './middlewares/error-handler';
+import limiter from './middlewares/limiter';
+import { errorLogger, requestLogger } from './middlewares/logger';
 
-import { PORT, DB_URL, PUBLIC_PATH } from './config'
+import routes from './routes';
 
-const app = express()
-const helmetOptions: HelmetOptions = { crossOriginResourcePolicy: { policy: 'same-site' } }
+import 'dotenv/config';
 
-mongoose.connect(DB_URL).catch((error: any) => { console.log(error) })
+const app = express();
+const helmetOptions: HelmetOptions = { crossOriginResourcePolicy: { policy: 'same-site' } };
 
-app.use(limiter) // limit requests count
-app.use(cors()) // cross-domain settings
-app.use(requestLogger) // winston requests logger
-app.use(helmet(helmetOptions)) // protect headers
-app.use(bodyParser.urlencoded({ extended: true }))
-app.use(bodyParser.json())
-app.use(express.static(PUBLIC_PATH))
-app.use(routes) // all routes goes through here
-app.use(errorLogger) // winston error logger
-app.use(errors()) // celebrate error handler
-app.use(errorHandler) // final error handler
+mongoose.connect(DB_URL).catch((error: any) => console.error(error));
+
+app.use(limiter); // limit requests count
+app.use(cors()); // cross-domain settings
+app.use(requestLogger); // winston requests logger
+app.use(helmet(helmetOptions)); // protect headers
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(express.static(PUBLIC_FOLDER));
+app.use(routes); // all routes goes through here
+app.use(errorLogger); // winston error logger
+app.use(errors()); // celebrate error handler
+app.use(errorHandler); // final error handler
 
 app.listen(PORT, () => {
-  console.log(`App listening on port ${PORT}`)
-  console.log(`DB path is ${DB_URL}`)
-})
+  console.error(`App listening on port ${PORT}`);
+  console.error(`DB path is ${DB_URL}`);
+});
