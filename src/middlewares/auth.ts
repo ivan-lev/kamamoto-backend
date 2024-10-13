@@ -23,7 +23,7 @@ export function auth(req: any, res: Response, next: NextFunction): void {
   try {
     payload = jwt.verify(
       token,
-      NODE_ENV === 'production' ? JWT_SECRET : 'secret-key',
+      NODE_ENV === 'production' ? JWT_SECRET : 'default-key',
     );
   }
   catch (error) {

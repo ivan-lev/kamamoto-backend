@@ -16,7 +16,7 @@ export function login(req: Request, res: Response, next: NextFunction): void {
     .then((user: any) => {
       const token = jwt.sign(
         { _id: user._id },
-        NODE_ENV === 'production' ? JWT_SECRET : 'secret-key',
+        NODE_ENV === 'production' ? JWT_SECRET : 'default-key',
         { expiresIn: '7d' },
       );
       res.send({ token });
