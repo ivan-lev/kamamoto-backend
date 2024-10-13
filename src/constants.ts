@@ -1,3 +1,5 @@
+import { BASE_URL, PORT } from './config';
+
 export const ERROR_MESSAGES = {
   DEFAULT_MESSAGE: 'На сервере произошла ошибка',
   UNAUTHORIZED: 'Необходима авторизация',
@@ -33,16 +35,17 @@ export const ERROR_MESSAGES = {
   CATEGORY_WRONG_DATA: 'При сохранении категории переданы невалидные данные',
   CATEGORY_WRONG_ID: 'Передано некорректное название категории',
   CATEGORY_NOT_FOUND: 'Категория с таким названием не найдена',
-  CATEGORY_EXISTS: 'Категория с таким названием или путём уже существует'
-}
+  CATEGORY_EXISTS: 'Категория с таким названием или путём уже существует',
+};
 
 export const REGEX = {
   CATEGORY_EN: /^[a-z]+$/,
   CATEGORY_RU: /^[а-я]+$/,
   IMAGE: /\w+\.(jpe?g|webp)$/i,
-  URL: /(https?:\/\/)(www\.)?[\w-]+\.[a-z]{2,6}[\w\-._~:/?#[\]@!$&'()*+,;=]*/
-}
+  URL: /(https?:\/\/)(www\.)?[\w-]+\.[a-z]{2}[\w\-.~:/?#[\]@!$&'()*+,;=]*/,
+};
 
 export const PATHS = {
-  LETTERS: 'letters'
-}
+  LETTERS: 'letters',
+  PUBLIC_PATH: `${BASE_URL}:${PORT}`,
+};

@@ -1,23 +1,19 @@
 import type { NextFunction, Request, Response } from 'express';
 import type { File } from '../types/file';
 
-import { BASE_URL, PORT } from '../config';
-
 import { ERROR_MESSAGES, PATHS } from '../constants';
-
 import { ConflictError } from '../errors/conflict-error';
-
 import { NotFoundError } from '../errors/not-found-error';
 import { ValidationError } from '../errors/validation-error';
+
 import Letter from '../models/letter';
-import 'dotenv/config';
 
 function getLetters(req: Request, res: Response, next: NextFunction): void {
   Letter.find({}, { _id: 0 })
     .then((letters: File[]) => {
       return letters.map((letter) => {
-        letter.name = `${BASE_URL}:${PORT}/${PATHS.LETTERS}/${letter.name}`;
-        letter.preview = `${BASE_URL}:${PORT}/${PATHS.LETTERS}/${letter.preview}`;
+        letter.name = `${PATHS.PUBLIC_PATH}/${PATHS.LETTERS}/${letter.name}`;
+        letter.preview = `${PATHS.PUBLIC_PATH}/${PATHS.LETTERS}/${letter.preview}`;
         return letter;
       });
     })
