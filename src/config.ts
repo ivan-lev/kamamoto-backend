@@ -1,14 +1,14 @@
-import 'dotenv/config'
-import path from 'path'
+import path from 'node:path';
+import 'dotenv/config';
 
 const {
-  PORT = 3000,
-  DB_URL = 'mongodb://127.0.0.1:27017/kamamotodb',
-  NODE_ENV = 'dev',
-  JWT_SECRET = 'secret-key',
-  BASE_URL = 'http://localhost'
-} = process.env
+  PORT = 0,
+  DB_URL = 'CHECK_YOUR_DOTENV',
+  NODE_ENV = 'CHECK_YOUR_DOTENV',
+  JWT_SECRET = 'CHECK_YOUR_DOTENV',
+  BASE_URL = 'CHECK_YOUR_DOTENV',
+} = process.env;
 
-const PUBLIC_PATH = path.join(__dirname, 'public')
+const PUBLIC_FOLDER = path.join(__dirname, 'public');
 
-export { BASE_URL, PORT, DB_URL, NODE_ENV, JWT_SECRET, PUBLIC_PATH }
+export { BASE_URL, DB_URL, JWT_SECRET, NODE_ENV, PORT, PUBLIC_FOLDER };
