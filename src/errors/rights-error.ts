@@ -4,4 +4,3 @@ export class RightsError extends Error {
     this.statusCode = 403;
   }
 }
-
