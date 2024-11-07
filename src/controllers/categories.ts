@@ -23,23 +23,18 @@ function getCategories(req: Request, res: Response, next: NextFunction): void {
 		.catch((error) => { return next(error); });
 }
 
-function getCategoriesFront(req: Request, res: Response, next: NextFunction): void {
-	Category.find({}, '-_id')
-		.then((categories) => {
-			return categories.map((category: CategoryType) => {
-				return category.thumbnailPath = `${PATHS.PUBLIC_PATH}/${PATHS.CATEGORIES}/${category.thumbnail}`;
-			});
-		})
-		.then(categories => res.send(categories))
-		.catch((error) => { return next(error); });
-}
-
-function getCategoryExhibits(req: Request, res: Response, next: NextFunction): void {
+function getExhibitsByCategory(req: Request, res: Response, next: NextFunction): void {
 	Category.findOne({ category: req.params.category })
 		.orFail()
 		.then((category) => {
-			Exhibit.find({ exhibitCategory: category._id })
-				.then((exhibits: ExhibitType[]) => res.send(exhibits))
+			Exhibit.find({ category: category._id })
+				.then((exhibits: ExhibitType[]) => {
+					return exhibits.map((exhibit) => {
+						const thumbnailPath = `${PATHS.PUBLIC_PATH}/${PATHS.EXHIBITIS}/${exhibit.id}/${exhibit.thumbnail}`;
+						return { link: exhibit.id.toString(), title: exhibit.name, thumb: thumbnailPath };
+					});
+				})
+				.then(exhibits => res.send(exhibits))
 				.catch((error: any) => {
 					return next(error);
 				});
@@ -130,7 +125,7 @@ export const category = {
 	createCategory,
 	deleteCategory,
 	getCategories,
-	getCategoriesFront,
-	getCategoryExhibits,
+	// getCategoriesFront,
+	getExhibitsByCategory,
 	updateCategory,
 };

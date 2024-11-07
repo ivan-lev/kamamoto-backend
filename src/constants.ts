@@ -47,6 +47,7 @@ export const REGEX = {
 
 export const PATHS = {
 	CATEGORIES: 'categories',
+	EXHIBITIS: 'exhibits',
 	LETTERS: 'letters',
 	PUBLIC_PATH: `${BASE_URL}:${PORT}`,
 };

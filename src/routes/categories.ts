@@ -7,11 +7,7 @@ const categoryRouter = Router();
 categoryRouter.get('/', category.getCategories);
 categoryRouter.post('/', categoryValidator, category.createCategory);
 categoryRouter.patch('/:category', category.updateCategory);
-categoryRouter.get('/:category', category.getCategoryExhibits);
-categoryRouter.delete(
-  '/:category',
-  categoryDeleteValidator,
-  category.deleteCategory,
-);
+categoryRouter.get('/:category', category.getExhibitsByCategory);
+categoryRouter.delete('/:category', categoryDeleteValidator, category.deleteCategory);
 
 export default categoryRouter;
