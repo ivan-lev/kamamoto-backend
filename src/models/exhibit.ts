@@ -4,119 +4,128 @@ import { model, Schema } from 'mongoose';
 import { isURL } from 'validator';
 
 const exhibitSchema = new Schema<Exhibit>(
-  {
-    id: {
-      type: Number,
-      required: [true, 'Нужно указать номер экспоната'],
-      unique: true,
-    },
+	{
+		id: {
+			type: Number,
+			required: [true, 'Нужно указать номер экспоната'],
+			unique: true,
+		},
 
-    name: {
-      type: String,
-      required: [true, 'Нужно указать названием экспоната'],
-    },
+		name: {
+			type: String,
+			required: [true, 'Нужно указать названием экспоната'],
+		},
 
-    age: {
-      type: String,
-    },
+		age: {
+			type: String,
+		},
 
-    category: {
-      type: Schema.Types.ObjectId,
-      ref: 'category',
-      default: '66c7346ebc34b51d2a432a8d',
-    },
+		category: {
+			type: Schema.Types.ObjectId,
+			ref: 'category',
+			default: '66c7346ebc34b51d2a432a8d',
+		},
 
-    thumbnail: {
-      type: String,
-      required: [true, 'Нужно выбрать превьюшку'],
-      default: 'thumb.jpg',
-    },
+		images: {
+			type: [String],
+			required: [true, 'Нужно написать названия файлов'],
+		},
 
-    style: {
-      type: String,
-      required: [true, 'Нужно выбрать стиль керамики'],
-      // validate: {
-      //   validator: (value: string) =>
-      //     Object.values(CeramicStyleType).includes(value as CeramicStyleType),
-      //   message: "Некорректная категория керамики",
-      // },
-    },
+		additionalImages: {
+			type: [String],
+		},
 
-    potterName: {
-      type: String,
-    },
+		thumbnail: {
+			type: String,
+			required: [true, 'Нужно выбрать превьюшку'],
+			default: 'thumb.jpg',
+		},
 
-    potterJapaneseName: {
-      type: String,
-    },
+		style: {
+			type: String,
+			required: [true, 'Нужно выбрать стиль керамики'],
+			// validate: {
+			//   validator: (value: string) =>
+			//     Object.values(CeramicStyleType).includes(value as CeramicStyleType),
+			//   message: "Некорректная категория керамики",
+			// },
+		},
 
-    potterLifeDates: {
-      type: String,
-    },
+		potterName: {
+			type: String,
+		},
 
-    potterPhoto: {
-      type: String,
-      validate: {
-        validator: (value: string) => isURL(value),
-        message: 'Некорректный URL фотографии',
-      },
-    },
+		potterJapaneseName: {
+			type: String,
+		},
 
-    potterInfo: {
-      type: String,
-    },
+		potterLifeDates: {
+			type: String,
+		},
 
-    description: {
-      type: String,
-      required: [true, 'Нужно заполнить описание'],
-    },
+		potterPhoto: {
+			type: String,
+			validate: {
+				validator: (value: string) => isURL(value),
+				message: 'Некорректный URL фотографии',
+			},
+		},
 
-    additionalDescription: {
-      type: String,
-    },
+		potterInfo: {
+			type: String,
+		},
 
-    additionalPhotos: {
-      type: Boolean,
-    },
+		description: {
+			type: String,
+			required: [true, 'Нужно заполнить описание'],
+		},
 
-    additionalPhotosCount: {
-      type: Number,
-    },
+		additionalDescription: {
+			type: String,
+		},
 
-    price: {
-      type: Number,
-      min: [0, 'Дешевле не бывает'],
-      default: 0,
-    },
+		additionalPhotos: {
+			type: Boolean,
+		},
 
-    weight: {
-      type: Number,
-      // required: [true, "Взвесь предмет"],
-    },
+		additionalPhotosCount: {
+			type: Number,
+		},
 
-    height: {
-      type: Number,
-      // required: [true, "Нужно указать высоту предмета"],
-    },
+		price: {
+			type: Number,
+			min: [0, 'Дешевле не бывает'],
+			default: 0,
+		},
 
-    length: {
-      type: Number,
-      // required: [true, "Нужно указать высоту предмета"],
-    },
+		weight: {
+			type: Number,
+			// required: [true, "Взвесь предмет"],
+		},
 
-    width: {
-      type: Number,
-      // required: [true, "Нужно указать высоту предмета"],
-    },
+		height: {
+			type: Number,
+			// required: [true, "Нужно указать высоту предмета"],
+		},
 
-    diameter: { type: Number },
-    footDiameter: { type: Number },
-    volume: { type: Number },
-    weightOfSet: { type: Number },
-    complectation: { type: String },
-    preservation: { type: String },
-  },
-  { versionKey: false },
+		length: {
+			type: Number,
+			// required: [true, "Нужно указать высоту предмета"],
+		},
+
+		width: {
+			type: Number,
+			// required: [true, "Нужно указать высоту предмета"],
+		},
+
+		diameter: { type: Number },
+		footDiameter: { type: Number },
+		volume: { type: Number },
+		weightOfSet: { type: Number },
+		complectation: { type: String },
+		preservation: { type: String },
+	},
+	{ versionKey: false },
 );
 
 export default model<Exhibit>('exhibit', exhibitSchema);

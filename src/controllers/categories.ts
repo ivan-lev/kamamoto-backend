@@ -30,7 +30,7 @@ function getExhibitsByCategory(req: Request, res: Response, next: NextFunction):
 			Exhibit.find({ category: category._id })
 				.then((exhibits: ExhibitType[]) => {
 					return exhibits.map((exhibit) => {
-						const thumbnailPath = `${PATHS.PUBLIC_PATH}/${PATHS.EXHIBITIS}/${exhibit.id}/${exhibit.thumbnail}`;
+						const thumbnailPath = `${PATHS.PUBLIC_PATH}/${PATHS.EXHIBITS}/${exhibit.id}/${exhibit.thumbnail}`;
 						return { link: exhibit.id.toString(), title: exhibit.name, thumb: thumbnailPath };
 					});
 				})
