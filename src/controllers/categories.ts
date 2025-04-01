@@ -14,9 +14,9 @@ function getCategories(req: Request, res: Response, next: NextFunction): void {
 	Category.find({}, '-_id')
 		.then((categories) => {
 			return categories.map((cat: CategoryType) => {
-				const { category, title, thumbnail } = cat;
+				const { category, title } = cat;
 				const thumbnailPath = `${PATHS.PUBLIC_PATH}/${PATHS.CATEGORIES}/${cat.thumbnail}`;
-				return { category, title, thumbnail, thumbnailPath };
+				return { category, title, thumbnail: thumbnailPath };
 			});
 		})
 		.then(categories => res.send(categories))
